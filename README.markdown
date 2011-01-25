@@ -5,31 +5,31 @@ A python wrapper for the AgileTask API
 ## API's that are working
 
 * http://doc.agiletask.me/get_tasks.html
-** .GetAll()
+	* .GetAll()
 * http://doc.agiletask.me/get_today.html
-** .GetToday()
+	* .GetToday()
 * http://doc.agiletask.me/get_icebox.html
-** .GetIcebox()
+	* .GetIcebox()
 * http://doc.agiletask.me/get_single.html
-** .GetSingle( <Task ID> )
+	* .GetSingle( <Task ID> )
 
 ## API's that are being worked on
 
 * http://doc.agiletask.me/get_completed.html
-** .GetCompleted()
+	* .GetCompleted()
 * http://doc.agiletask.me/get_achievements.html
-** .GetRecentAchievements()
+	* .GetRecentAchievements()
 * http://doc.agiletask.me/get_new_achievements.html
-** .GetAllAchievements()
+	* .GetAllAchievements()
 
 ## API's that are not implemented
 
 * http://doc.agiletask.me/new_tasks.html
-** .AddTask()
+	* .AddTask()
 * http://doc.agiletask.me/update_tasks.html
-** .UpdateTask()
+	* .UpdateTask()
 * http://doc.agiletask.me/delete_tasks.html
-** .DeleteTask( id )
+	* .DeleteTask( id )
 
 ## Usage
 	from AgileTaskAPI import AgileTaskAPI
