@@ -11,7 +11,7 @@ A python wrapper for the AgileTask API
 * http://doc.agiletask.me/get_icebox.html
 	* .GetIcebox()
 * http://doc.agiletask.me/get_single.html
-	* .GetSingle( <Task ID> )
+	* .GetSingle( *&lt;Task ID&gt;* )
 
 ## API's that are being worked on
 
@@ -29,7 +29,7 @@ A python wrapper for the AgileTask API
 * http://doc.agiletask.me/update_tasks.html
 	* .UpdateTask()
 * http://doc.agiletask.me/delete_tasks.html
-	* .DeleteTask( id )
+	* .DeleteTask( *&lt;Task ID&gt;* )
 
 ## Usage
 	from AgileTaskAPI import AgileTaskAPI
