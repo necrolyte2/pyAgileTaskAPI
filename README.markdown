@@ -12,15 +12,14 @@ A python wrapper for the AgileTask API
 	* .GetIcebox()
 * http://doc.agiletask.me/get_single.html
 	* .GetSingle( *&lt;Task ID&gt;* )
-
-## API's that are being worked on
-
 * http://doc.agiletask.me/get_completed.html
 	* .GetCompleted()
 * http://doc.agiletask.me/get_achievements.html
 	* .GetRecentAchievements()
 * http://doc.agiletask.me/get_new_achievements.html
 	* .GetAllAchievements()
+
+## API's that are being worked on
 
 ## API's that are not implemented
 
