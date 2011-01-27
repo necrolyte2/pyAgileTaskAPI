@@ -85,12 +85,22 @@ class AgileTaskAPI:
 		except:
 			return []
 
+	def _is_id( self, number ):
+		if type( number ) == type( 1 ):
+			return True
+		else:
+			return False
+
+	# Tests written
 	def GetSingle( self, id ):
 		"""
 			http://doc.agiletask.me/get_single.html
 			Returns a single task by its id
 			HTTP Method: GET
 		"""
+		if not self._is_id( id ) and id > 0:
+			raise ValueError( 'ID must be an integer value > 0' )
+
 		# API URL
 		api_url = "/tasks/" + str( id ) + ".json"
 
