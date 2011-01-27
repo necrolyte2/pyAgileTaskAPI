@@ -1,0 +1,162 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module AgileTaskAPI</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>AgileTaskAPI</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/tyghe/Dropbox/Programming/pyAgileTaskAPI/AgileTaskAPI.py">/Users/tyghe/Dropbox/Programming/pyAgileTaskAPI/AgileTaskAPI.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="json.html">json</a><br>
+</td><td width="25%" valign=top><a href="urllib.html">urllib</a><br>
+</td><td width="25%" valign=top><a href="urllib2.html">urllib2</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="AgileTaskAPI.html#AgileTaskAPI">AgileTaskAPI</a>
+</font></dt><dt><font face="helvetica, arial"><a href="urllib2.html#Request">urllib2.Request</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="AgileTaskAPI.html#RequestWithMethod">RequestWithMethod</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="AgileTaskAPI">class <strong>AgileTaskAPI</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Agile&nbsp;Task&nbsp;API&nbsp;wrapper&nbsp;in&nbsp;python<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="AgileTaskAPI-AddTask"><strong>AddTask</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/new_tasks.html">http://doc.agiletask.me/new_tasks.html</a><br>
+Adds&nbsp;a&nbsp;new&nbsp;task<br>
+HTTP&nbsp;Method:&nbsp;POST</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-DeleteTask"><strong>DeleteTask</strong></a>(self, id)</dt><dd><tt><a href="http://doc.agiletask.me/delete_tasks.html">http://doc.agiletask.me/delete_tasks.html</a><br>
+Deletes&nbsp;a&nbsp;task<br>
+HTTP&nbsp;Method:&nbsp;DELETE</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-GetAllAchievements"><strong>GetAllAchievements</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_achievements.html">http://doc.agiletask.me/get_achievements.html</a><br>
+Returns&nbsp;all&nbsp;achievments<br>
+HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-GetAllTasks"><strong>GetAllTasks</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_tasks.html">http://doc.agiletask.me/get_tasks.html</a><br>
+Returns&nbsp;all&nbsp;tasks<br>
+HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-GetCompleted"><strong>GetCompleted</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_completed.html">http://doc.agiletask.me/get_completed.html</a><br>
+Returns&nbsp;all&nbsp;tasks&nbsp;completed<br>
+HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-GetIcebox"><strong>GetIcebox</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_icebox.html">http://doc.agiletask.me/get_icebox.html</a><br>
+Returns&nbsp;all&nbsp;tasks&nbsp;in&nbsp;icebox<br>
+HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-GetRecentAchievements"><strong>GetRecentAchievements</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_new_achievements.html">http://doc.agiletask.me/get_new_achievements.html</a><br>
+Returns&nbsp;all&nbsp;recently&nbsp;aquired&nbsp;achievments<br>
+HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-GetSingle"><strong>GetSingle</strong></a>(self, id)</dt><dd><tt><a href="http://doc.agiletask.me/get_single.html">http://doc.agiletask.me/get_single.html</a><br>
+Returns&nbsp;a&nbsp;single&nbsp;task&nbsp;by&nbsp;its&nbsp;id<br>
+HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-GetToday"><strong>GetToday</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_today.html">http://doc.agiletask.me/get_today.html</a><br>
+Returns&nbsp;today's&nbsp;tasks<br>
+HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-UpdateTask"><strong>UpdateTask</strong></a>(self, id)</dt><dd><tt><a href="http://doc.agiletask.me/update_tasks.html">http://doc.agiletask.me/update_tasks.html</a><br>
+Updates&nbsp;a&nbsp;task<br>
+HTTP&nbsp;Method:&nbsp;PUT</tt></dd></dl>
+
+<dl><dt><a name="AgileTaskAPI-__init__"><strong>__init__</strong></a>(self, api_key)</dt><dd><tt>Setup&nbsp;the&nbsp;class</tt></dd></dl>
+
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>api_base_url</strong> = 'https://agiletask.me'</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="RequestWithMethod">class <strong>RequestWithMethod</strong></a>(<a href="urllib2.html#Request">urllib2.Request</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="http://benjamin.smedbergs.us/blog/2008-10-21/putting-and-deleteing-in-python-urllib2/">http://benjamin.smedbergs.us/blog/2008-10-21/putting-and-deleteing-in-python-urllib2/</a><br>
+Allows&nbsp;you&nbsp;to&nbsp;change&nbsp;the&nbsp;request&nbsp;method&nbsp;to&nbsp;anything&nbsp;you&nbsp;wish<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="RequestWithMethod-__init__"><strong>__init__</strong></a>(self, method, *args, **kwargs)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-get_method"><strong>get_method</strong></a>(self)</dt></dl>
+
+<hr>
+Methods inherited from <a href="urllib2.html#Request">urllib2.Request</a>:<br>
+<dl><dt><a name="RequestWithMethod-__getattr__"><strong>__getattr__</strong></a>(self, attr)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-add_data"><strong>add_data</strong></a>(self, data)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-add_header"><strong>add_header</strong></a>(self, key, val)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-add_unredirected_header"><strong>add_unredirected_header</strong></a>(self, key, val)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-get_data"><strong>get_data</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-get_full_url"><strong>get_full_url</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-get_header"><strong>get_header</strong></a>(self, header_name, default<font color="#909090">=None</font>)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-get_host"><strong>get_host</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-get_origin_req_host"><strong>get_origin_req_host</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-get_selector"><strong>get_selector</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-get_type"><strong>get_type</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-has_data"><strong>has_data</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-has_header"><strong>has_header</strong></a>(self, header_name)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-has_proxy"><strong>has_proxy</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-header_items"><strong>header_items</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-is_unverifiable"><strong>is_unverifiable</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="RequestWithMethod-set_proxy"><strong>set_proxy</strong></a>(self, host, type)</dt></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>VERSION</strong> = '0.0.1'<br>
+<strong>__author__</strong> = 'vallardt@gmail.com (Tyghe Vallard)'</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Author</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">vallardt@gmail.com&nbsp;(Tyghe&nbsp;Vallard)</td></tr></table>
+</body></html>

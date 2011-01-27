@@ -25,7 +25,7 @@ class AgileTaskAPI:
 	api_base_url = 'https://agiletask.me'
 
 	def __init__( self, api_key ):
-		""" Setup the class """
+		""" Set the api_key for the user for this class instance """
 
 		# Set the api key for the user
 		self.api_key = api_key
