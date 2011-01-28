@@ -23,12 +23,16 @@ class AgileTaskAPI:
 
 	# The base url for AgileTaks's api
 	api_base_url = 'https://agiletask.me'
+	#api_base_url = 'http://tygertown.us'
 
 	def __init__( self, api_key ):
 		""" Set the api_key for the user for this class instance """
 
 		# Set the api key for the user
 		self.api_key = api_key
+
+		# Valid True False values for AgileTask
+		self.tf = [ 'true', 'false' ]
 
 	def _send_request( self, url, data, method = 'GET' ):
 		""" Sends a request to a url with the given data and using the given method """
@@ -45,10 +49,13 @@ class AgileTaskAPI:
 		try:
 			# Open the url
 			response = urllib2.urlopen(req)
-		except URLError, e:
+		except HTTPError, e:
 			if hasattr(e, 'reason'):
 				print 'We failed to reach a server.'
 				print 'Reason: ', e.reason
+			elif hasattr( e, 'code') and e.code == 405:
+				print "URL: %s" % api_url
+				print "Invalid method sent to server. Tried %s and server only allows %s" % (req.get_method(), e.info()['Allow'])
 			elif hasattr(e, 'code') and e.code != 404:
 				print 'The server couldn\'t fulfill the request.'
 				print "URL: %s" % api_url
@@ -65,6 +72,16 @@ class AgileTaskAPI:
 			return json.loads( jsonString )
 		except ValueError, e:
 			print "Invalid json string returned from server"
+			return []
+
+	def _post( self, url, data = {} ):
+		""" Send data to a URL as POST and return the returned output from that page """
+		# Need to append api_key to data if it isn't included
+		url += '?' + urllib.urlencode( { "api_key" : self.api_key } )
+
+		try:
+			return self._decodeJson( self._send_request( url, data, 'POST' ) )
+		except:
 			return []
 
 	def _get( self, url, params = {} ):
@@ -85,7 +102,7 @@ class AgileTaskAPI:
 		except:
 			return []
 
-	def _is_id( self, number ):
+	def _is_digit( self, number ):
 		if type( number ) == type( 1 ):
 			return True
 		else:
@@ -98,7 +115,7 @@ class AgileTaskAPI:
 			Returns a single task by its id
 			HTTP Method: GET
 		"""
-		if not self._is_id( id ) and id > 0:
+		if not self._is_digit( id ) and id > 0:
 			raise ValueError( 'ID must be an integer value > 0' )
 
 		# API URL
@@ -179,15 +196,39 @@ class AgileTaskAPI:
 		# Return the request object
 		return self._get( api_url )
 
-	def AddTask( self ):
+	def AddTask( self, name, icebox = 'true', position = 1, complete = 'false' ):
 		"""
 			http://doc.agiletask.me/new_tasks.html
-			Adds a new task
+			Adds a new task given task info
 			HTTP Method: POST
 		"""
-
 		# API URL
-		api_url = '/tasks/tasks.json'
+		api_url = '/tasks.json'
+		#api_url = '/testpost.php'
+
+		# Make sure the position is a digit
+		if not self._is_digit( position ):
+			raise ValueError( "Position has to be an integer value > 0" )
+		
+		# Make sure the name is a valid string
+		## Check needs to be implemented
+
+		# Make sure icebox is valid
+		if not icebox in self.tf:
+			raise ValueError( "icebox value given is incorrect" )
+
+		# Make sure complete is valid
+		if not complete in self.tf:
+			raise ValueError( "complete value given is incorrect" )
+
+		# The Data to send
+		task = { 
+			 "task[position]" : position, \
+			 "task[name]" : name, \
+			 "task[icebox]" : icebox, 
+			 "task[complete]" : complete \
+		       }
+		return self._post( api_url, task )
 
 	def UpdateTask( self, id ):
 		"""
