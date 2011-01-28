@@ -22,11 +22,10 @@ A python wrapper for the AgileTask API
 	* .AddTask( name, icebox = 'true|false', position, complete = 'true|false' )
 * http://doc.agiletask.me/delete_tasks.html
 	* .DeleteTask( *&lt;Task ID&gt;* )
-
-## API's that are not implemented
-
 * http://doc.agiletask.me/update_tasks.html
 	* .UpdateTask()
+
+## API's that are not implemented
 
 ## Usage
 	from AgileTaskAPI import AgileTaskAPI

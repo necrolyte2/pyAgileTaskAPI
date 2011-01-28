@@ -196,7 +196,7 @@ class UpdateTestCases( BaseTests ):
 
 	def setUp( self, *args, **kwargs ):
 		""" Create a task to work with """
-		super( UpdateTestCases, self ).__init__( self, *args, **kwargs )
+		super( UpdateTestCases, self ).setUp( *args, **kwargs )
 		self.task = self.api.AddTask( name = "Update Me", icebox = 'false', complete = 'false' )
 		self.taskID = self.task['task']['id']
 
@@ -210,35 +210,74 @@ class UpdateTestCases( BaseTests ):
 		updatedTask = self.api.UpdateTask( self.taskID, name = "I have updated #Test" )
 
 		# The original task's name and the updatedTask's name should be different after the update
-		self.assertNotEqual( task['task']['name'], updatedTask['task']['name'] )
+		self.assertNotEqual( self.task['task']['name'], updatedTask['task']['name'] )
 
 		# The updated_at should now be different as well
-		self.assertNotEqual( task['task']['updated_at'], updatedTask['task']['updated_at'] )
+		self.assertNotEqual( self.task['task']['updated_at'], updatedTask['task']['updated_at'] )
+
+		# Now set the task to our updated task for later comparisons
+		self.task = updatedTask
 
 	def test_updatetask_today_does_not_exist( self ):
 		""" Should raise exception that task does not exist """
 		# Update a task that doesn't exist(Shouldn't have a task with id of 0)
 		self.assertEqual( self.api.UpdateTask( 0, name = "Update non-existing task" ), [] )
 
-	def test_updatetask_move_task( self ):
-		""" Should update a task and move it from today list to icebox list """
-		# Normalize the task to the today list
-		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'false', complete = 'false' )
-
-		# Move the task to the icebox
-		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'true' )
-		# Task should now be in the icebox
-		self.assertTrue( updatedTask['task']['icebox'] )
+	def test_updatetask_move_to_today( self ):
+		""" Should move a task from icebox to today """
+		# Move to icebox so we can move to today
+		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'true', complete = 'false' )
 
 		# Move the task to today
 		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'false' )
+
 		# Task should not be in the icebox
 		self.assertFalse( updatedTask['task']['icebox'] )
 
-		# Move the task to completed
-		updateTask = self.api.UpdateTask( self.taskID, complete = 'true' )
+		# Now set the task to our updated task for later comparisons
+		self.task = updatedTask
+	
+	def test_updatetask_move_to_icebox( self ):
+		""" Should move a task from today to icebox """
+		# Move to today so we can move to icebox
+		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'false', complete = 'false' )
+		
+		# Move to icebox so we can move to today
+		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'true', complete = 'false' )
+
+		# Task should be in the icebox
+		self.assertTrue( updatedTask['task']['icebox'] )
+
+		# Now set the task to our updated task for later comparisons
+		self.task = updatedTask
+
+	def test_updatetask_move_to_complete( self ):
+		""" Should move a task to the complete list """
+		# Move out of complete
+		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'false', complete = 'false' )
+
+		# Move the task to the complete
+		updatedTask = self.api.UpdateTask( self.taskID, complete = 'true' )
+
 		# Task should now be in the complete
 		self.assertTrue( updatedTask['task']['complete'] )
+
+		# Now set the task to our updated task for later comparisons
+		self.task = updatedTask
+
+	def test_updatetask_use_task_param( self ):
+		""" Should update a task given just a modified task returned from an update or get """
+		# Set a new name
+		self.task['task']['name'] = "Here is my new name #Update Test"
+
+		# Update our task using a previously returned task
+		updatedTask = self.api.UpdateTask( self.taskID, task = self.task )
+		
+		# Make sure our 
+		self.assertNotEqual( self.task['task']['updated_at'], updatedTask['task']['updated_at'] )
+
+		# Now set our original task to updated task for later comparisons
+		self.task = updatedTask
 
 	def test_updatetask_bad_id( self ):
 		""" Should raise an ValueError exception from the bad id given """
@@ -329,6 +368,8 @@ if __name__ == '__main__':
 		suite = UpdateTestSuite()
 	elif suiteName == 'Delete':
 		suite = DeleteTestSuite()
+	elif suiteName == 'All':
+		suite = AllTestSuite()
 	else:
 		print "Valid Tests are %s" % validTests
 		sys.exit( -1 )

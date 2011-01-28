@@ -92,7 +92,6 @@ class AgileTaskAPI:
 
 		# Return the task we just deleted
 		return self._decodeJson( task )
-		
 
 	def _post( self, url, data = {} ):
 		""" Send data to a URL as POST and return the returned output from that page """
@@ -103,6 +102,20 @@ class AgileTaskAPI:
 			return self._decodeJson( self._send_request( url, data, 'POST' ) )
 		except:
 			return []
+
+	def _put( self, url, data = {} ):
+		""" Send data to a URL as PUT and return the output from the page as json """
+		# Need to append api_key to data if it isn't included
+		url += '?' + urllib.urlencode( { "api_key" : self.api_key } )
+
+		try:
+			task = self._send_request( url, data, 'PUT' )
+		except ValueError, e:
+			# If there was no task for the id send return []
+			return []
+
+		# Return the task that was updated
+		return self._decodeJson( task )
 
 	def _get( self, url, params = {} ):
 		""" Get data from a url and return the list/dict representation of the json returned """
@@ -257,16 +270,46 @@ class AgileTaskAPI:
 		       }
 		return self._post( api_url, task )
 		
-
-	def UpdateTask( self, id, name, icebox, position, complete ):
+	def UpdateTask( self, id = None, name = None, icebox = None, position = None, complete = None, task = {} ):
 		"""
 			http://doc.agiletask.me/update_tasks.html
 			Updates a task
 			HTTP Method: PUT
 		"""
+		
+		# If task was given as a convienence we will use the values from that dictionary
+		if task:
+			name = task['task']['name']
+			icebox = task['task']['icebox']
+			complete = task['task']['complete']
+			position = task['task']['position']
+
+		# Build our data dictionary to send to server using only values that are given
+		data = {}
+		if not name:
+			name = ''
+		else:
+			data['task[name]'] = name
+		if not icebox:
+			icebox = 'false'
+		else:
+			data['task[icebox]'] = icebox
+		if not position:
+			position = 1
+		else:
+			data['task[position]'] = position
+		if not complete:
+			complete = 'false'
+		else:
+			data['task[complete]'] = complete
+
+		# Check the values given
+		self._check_values( id = id, name = name, icebox = icebox, position = position, complete = complete )
 
 		# API URL
 		api_url = '/tasks/' + str( id ) + '.json'
+
+		return self._put( api_url, data )
 
 	def DeleteTask( self, id ):
 		"""
