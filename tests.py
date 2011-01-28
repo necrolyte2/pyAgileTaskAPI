@@ -83,7 +83,10 @@ class GetTestCases( BaseTests ):
 		self.assertTrue( len( task ) == 1, "The task has to be length 1" )
 
 class AddTestCases( BaseTests ):
-	### Tests for AddTask
+	"""
+		Tests to make sure that Adding a task works
+		Depends on DeleteTask working which makes a vicious cycle of testing
+	"""
 	def test_addtask_today_good( self ):
 		""" Should add a task to the today list """
 		task = self.api.AddTask( "This task should go into Today", icebox = 'false', complete = 'false' )
@@ -95,6 +98,9 @@ class AddTestCases( BaseTests ):
 		self.assertFalse( ( task['task']['icebox'] ) )
 		# complete is false
 		self.assertFalse( ( task['task']['complete'] ) )
+
+		# Delete the task
+		self.api.DeleteTask( task['task']['id'] )
 
 	def test_addtask_icebox_good( self ):
 		""" Should add a task to the icebox list """
@@ -108,6 +114,9 @@ class AddTestCases( BaseTests ):
 		# complete is false
 		self.assertFalse( ( task['task']['complete'] ) )
 
+		# Delete the task
+		self.api.DeleteTask( task['task']['id'] )
+
 	def test_addtask_complete_good( self ):
 		""" Should add a task to the icebox list """
 		task = self.api.AddTask( "This task should go into completed", complete = 'true' )
@@ -117,6 +126,9 @@ class AddTestCases( BaseTests ):
 		self.assertEqual( len( task ), 1, str( task ) )
 		# complete is false
 		self.assertTrue( ( task['task']['complete'] ) )
+
+		# Delete the task
+		self.api.DeleteTask( task['task']['id'] )
 
 	def test_addtask_bad_id( self ):
 		""" Should raise an exception from bad position value """
@@ -130,6 +142,17 @@ class AddTestCases( BaseTests ):
 		""" Should raise an exception from bad value for completed """
 		self.failUnlessRaises( ValueError, self.api.AddTask, name = "This should not be added", complete = 'BadValue' )
 
+	def test_addtask_with_tag( self ):
+		""" Should add a task that has tags in the name """
+		task = self.api.AddTask( "This task should go into Today #TestTag", icebox = 'false', complete = 'false' )
+		# Make sure we are getting a dict back
+		self.assertTrue( type( task ) == type( {} ), str( task ) )
+		# Length has to be 1
+		self.assertEqual( len( task ), 1, str( task ) )
+
+		# Delete the task
+		self.api.DeleteTask( task['task']['id'] )
+		
 	def test_addtask_bad_name( self ):
 		""" Should raise an exception if bad things are given in the name """
 		pass
@@ -139,11 +162,45 @@ class UpdateTestCases( BaseTests ):
 	pass
 
 class DeleteTestCases( BaseTests ):
-	### Tests for DeleteTask
-	
-	def test_deletetask_bad_id_given( self ):
-		""" Raises exception on bad input """
-		self.failUnlessRaises( ValueError, self.api.DeleteTask, "henry" )
+	"""
+		Tests to make sure that Deleting a task works.
+		Assumes that both Adding and Get'ing tests have passed
+	"""
+	def test_deletetask_today_good( self ):
+		""" Should delete a task from today """
+		# Add a task to delete it
+		task = self.api.AddTask( "Please Delete Me", icebox = 'false', complete = 'false' )
+		taskID = task['task']['id']
+		self.api.DeleteTask( taskID )
+		# The resulting fetch should be an empty list if the task was deleted
+		self.assertEqual( self.api.GetSingle( taskID ), [] )
+
+	def test_deletetask_today_does_not_exist( self ):
+		""" Should raise exception that task does not exist """
+		# Deleting a task that doesn't exist(Shouldn't have a task with id of 0)
+		self.assertEqual( self.api.DeleteTask( 0 ), [] )
+
+	def test_deletetask_icebox_good( self ):
+		""" Should delete a task from the icebox list """
+		# Add a task to delete it
+		task = self.api.AddTask( "Please Delete Me", icebox = 'true', complete = 'false' )
+		taskID = task['task']['id']
+		self.api.DeleteTask( taskID )
+		# The resulting fetch should be an empty list if the task was deleted
+		self.assertEqual( self.api.GetSingle( taskID ), [] )
+
+	def test_deletetask_complete_good( self ):
+		""" Should delete a task from the complete list """
+		# Add a task to delete it
+		task = self.api.AddTask( "Please Delete Me", complete = 'true' )
+		taskID = task['task']['id']
+		self.api.DeleteTask( taskID )
+		# The resulting fetch should be an empty list if the task was deleted
+		self.assertEqual( self.api.GetSingle( taskID ), [] )
+
+	def test_deletetask_bad_id( self ):
+		""" Should raise an exception from bad position value """
+		self.failUnlessRaises( ValueError, self.api.DeleteTask, 'henry' )
 
 def GetTestSuite( ):
 	return unittest.TestLoader().loadTestsFromTestCase( GetTestCases )

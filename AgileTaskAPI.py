@@ -50,13 +50,15 @@ class AgileTaskAPI:
 			# Open the url
 			response = urllib2.urlopen(req)
 		except HTTPError, e:
+			if hasattr( e, 'code' ) and e.code == 404:
+				raise ValueError( "Bad URL. Most probable cause is an ID given that does not exist" )
 			if hasattr(e, 'reason'):
 				print 'We failed to reach a server.'
 				print 'Reason: ', e.reason
 			elif hasattr( e, 'code') and e.code == 405:
 				print "URL: %s" % api_url
 				print "Invalid method sent to server. Tried %s and server only allows %s" % (req.get_method(), e.info()['Allow'])
-			elif hasattr(e, 'code') and e.code != 404:
+			elif hasattr(e, 'code'):
 				print 'The server couldn\'t fulfill the request.'
 				print "URL: %s" % api_url
 				print 'Error code: ', e.code
@@ -73,6 +75,24 @@ class AgileTaskAPI:
 		except ValueError, e:
 			print "Invalid json string returned from server"
 			return []
+
+	def _delete( self, url, params = {} ):
+		"""
+			Send data to a URL as DELETE and return the task that was deleted or 
+			 [] if no task exists for that ID
+		"""
+		# Need to append api_key to data if it isn't included
+		url += '?' + urllib.urlencode( { "api_key" : self.api_key } )
+
+		try:
+			task = self._send_request( url, params, 'DELETE' )
+		except ValueError, e:
+			# If there was no task for the id we are trying to delete return []
+			return []
+
+		# Return the task we just deleted
+		return self._decodeJson( task )
+		
 
 	def _post( self, url, data = {} ):
 		""" Send data to a URL as POST and return the returned output from that page """
@@ -95,12 +115,14 @@ class AgileTaskAPI:
 
 		# Return the request object
 		# Catch the bad requests because they are probably valid requests just no data for them
-		# I.E. GetSingle( 53) when the user does not have a task with id of 53 which returns a 404 page that is
+		# I.E. GetSingle( 53 ) when the user does not have a task with id of 53 which returns a 404 page that is
 		# not parseable by json
 		try:
-			return self._decodeJson( self._send_request( url, data, 'GET' ) )
-		except:
+			task = self._send_request( url, data, 'GET' )
+		except ValueError, e:
 			return []
+
+		return self._decodeJson( task )
 
 	def _is_digit( self, number ):
 		if type( number ) == type( 1 ):
@@ -246,9 +268,13 @@ class AgileTaskAPI:
 			Deletes a task
 			HTTP Method: DELETE
 		"""
+		if not self._is_digit( id ):
+			raise ValueError( "ID has to be an integer > 0" )
 
 		# API URL
 		api_url = '/tasks/' + str( id ) + '.json'
+
+		return self._delete( api_url )
 
 if __name__ == "__main__":
     import doctest

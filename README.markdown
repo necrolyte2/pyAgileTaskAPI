@@ -20,13 +20,13 @@ A python wrapper for the AgileTask API
 	* .GetAllAchievements()
 * http://doc.agiletask.me/new_tasks.html
 	* .AddTask( name, icebox = 'true|false', position, complete = 'true|false' )
+* http://doc.agiletask.me/delete_tasks.html
+	* .DeleteTask( *&lt;Task ID&gt;* )
 
 ## API's that are not implemented
 
 * http://doc.agiletask.me/update_tasks.html
 	* .UpdateTask()
-* http://doc.agiletask.me/delete_tasks.html
-	* .DeleteTask( *&lt;Task ID&gt;* )
 
 ## Usage
 	from AgileTaskAPI import AgileTaskAPI
