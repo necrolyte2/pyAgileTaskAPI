@@ -18,13 +18,11 @@ A python wrapper for the AgileTask API
 	* .GetRecentAchievements()
 * http://doc.agiletask.me/get_new_achievements.html
 	* .GetAllAchievements()
-
-## API's that are being worked on
+* http://doc.agiletask.me/new_tasks.html
+	* .AddTask()
 
 ## API's that are not implemented
 
-* http://doc.agiletask.me/new_tasks.html
-	* .AddTask()
 * http://doc.agiletask.me/update_tasks.html
 	* .UpdateTask()
 * http://doc.agiletask.me/delete_tasks.html
