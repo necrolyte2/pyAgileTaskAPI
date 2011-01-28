@@ -23,7 +23,8 @@ A python wrapper for the AgileTask API
 * http://doc.agiletask.me/delete_tasks.html
 	* .DeleteTask( *&lt;Task ID&gt;* )
 * http://doc.agiletask.me/update_tasks.html
-	* .UpdateTask()
+	* .UpdateTask( *id*[, *name* [, *icebox*[*position*[, *complete*]]]], *task* = *&lt;Task Object&gt;* )  
+		* __Note__: You have to provide either the task object or some combination of name, icebox, position and complete
 
 ## API's that are not implemented
 
