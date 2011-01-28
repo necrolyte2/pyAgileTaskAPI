@@ -19,7 +19,7 @@ A python wrapper for the AgileTask API
 * http://doc.agiletask.me/get_new_achievements.html
 	* .GetAllAchievements()
 * http://doc.agiletask.me/new_tasks.html
-	* .AddTask()
+	* .AddTask( name, icebox = 'true|false', position, complete = 'true|false' )
 
 ## API's that are not implemented
 
