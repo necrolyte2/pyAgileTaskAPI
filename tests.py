@@ -18,55 +18,70 @@ class BaseTests( unittest.TestCase ):
 		self.assertTrue( len( json ) == 1 )
 
 class GetTestCases( BaseTests ):
-	""" Tests all Get Methods """
+	"""
+		Tests to make sure getting tasks works
+		Assumes that AddTask works
+	"""
 	def setUp( self, *args, **kwargs ):
 		super( GetTestCases, self ).setUp( *args, **kwargs )
-		self.alltasks = self.api.GetAllTasks()
-		self.singleID = self.alltasks[0]['task']['id']
+		self.alltasks = []
+		self.fixtureTasks = []
+		self.fixtureTasks.append( self.api.AddTask( name = "Get This Task Today", icebox = 'false', complete = 'false' ) )
+		self.fixtureTasks.append( self.api.AddTask( name = "Get This Task Icebox", icebox = 'true', complete = 'false' ) )
+		self.fixtureTasks.append( self.api.AddTask( name = "Get This Task Complete", icebox = 'false', complete = 'true' ) )
 
-	### Tests for GetAllTasks
+	def tearDown( self ):
+		# Remove the tasks we created in setUP
+		for task in self.fixtureTasks:
+			self.api.DeleteTask( task['task']['id'] )
 
 	def test_getalltasks_good( self ):
 		""" Should return all tasks as a list """
+		# Actually save this result set for later
+		self.alltasks = self.api.GetAllTasks()
+
 		# Should be a list
 		self.assertTrue( self._isList( self.alltasks ) )
 
-	### Tests for GetCompleted
+		# The list should be larger than 0
+		self.assertTrue( len( self.alltasks ) >= 3 )
 
 	def test_getcompleted_good( self ):
 		""" Should return all tasks as a list """
+		tasks = self.api.GetCompleted()
 		# Should be a list
-		self.assertTrue( self._isList( self.api.GetCompleted() ) )
-
-	### Tests for GetIcebox
+		self.assertTrue( self._isList( tasks ) )
+		
+		# Should be at least 1 task in the completed list
+		self.assertTrue( len( tasks ) >= 1 )
 
 	def test_geticebox_good( self ):
 		""" Should return all tasks as a list """
+		tasks = self.api.GetIcebox()
 		# Should be a list
-		self.assertTrue( self._isList( self.api.GetIcebox() ) )
+		self.assertTrue( self._isList( tasks ) )
 
-	### Tests for GetToday
+		# Should be at least one item in the icebox
+		self.assertTrue( len( tasks ) >= 1 )
 
 	def test_gettoday_good( self ):
 		""" Should return all tasks as a list """
+		tasks = self.api.GetToday()
 		# Should be a list
-		self.assertTrue( self._isList( self.api.GetToday() ) )
+		self.assertTrue( self._isList( tasks ) )
 
-	### Tests for GetAchievements
+		# Should be at least one item in today list
+		self.assertTrue( len( tasks ) >= 1 )
 
 	def test_getachievements_good( self ):
 		""" Should return all tasks as a list """
 		# Should be a list
 		self.assertTrue( self._isList( self.api.GetAllAchievements() ) )
 
-	### Tests for GetRecentAchievements
-
 	def test_getrecentachievements_good( self ):
 		""" Should return all tasks as a list """
 		# Should be a list
 		self.assertTrue( self._isList( self.api.GetRecentAchievements() ) )
-
-	### Tests for GetSingle
 
 	def test_getsingle_bad_id_given( self ):
 		""" GetSingle raises exception on bad input """
@@ -74,11 +89,27 @@ class GetTestCases( BaseTests ):
 
 	def test_getsingle_no_task_for_id( self ):
 		""" Should return empty list when there is no task for an id """
-		self.assertEqual( self.api.GetSingle( 0 ), [] )
+		import random
+
+		# Make sure that we have all the tasks in the variable in case the all tasks test has not been run
+		if not self.alltasks:
+			self.alltasks = self.api.GetAllTasks()
+
+		# Build a list of all id's of tasks we own
+		ids = [task['task']['id'] for task in self.alltasks]
+
+		# Get an id that is not in the list of id's we own
+		id = random.randint( 1, 100000 )
+		while id in ids:
+			id = random.randint( 1, 100000 )
+
+		self.assertEqual( self.api.GetSingle( id ), [] )
 
 	def test_getsingle_good_id_given( self ):
 		""" Should return a list representation of the task's json object """
-		task = self.api.GetSingle( self.singleID )
+		# Fetch the first task we created in setUp
+		task = self.api.GetSingle( self.fixtureTasks[0]['task']['id'] )
+
 		self.assertTrue( type( task ) == type( {} ), "The task has to be a dict" )
 		self.assertTrue( len( task ) == 1, "The task has to be length 1" )
 
@@ -158,8 +189,72 @@ class AddTestCases( BaseTests ):
 		pass
 
 class UpdateTestCases( BaseTests ):
-	### Tests for UpdateTask
-	pass
+	"""
+		Tests to make sure that Updating a task works.
+		Assumes that both Adding and Deleting tests have passed
+	"""
+
+	def setUp( self, *args, **kwargs ):
+		""" Create a task to work with """
+		super( UpdateTestCases, self ).__init__( self, *args, **kwargs )
+		self.task = self.api.AddTask( name = "Update Me", icebox = 'false', complete = 'false' )
+		self.taskID = self.task['task']['id']
+
+	def tearDown( self ):
+		""" Remove the task created """
+		self.api.DeleteTask( self.taskID )
+
+	def test_updatetask_name( self ):
+		""" Should update a task in today list """
+		# Update the task and store the old task's value for comparison
+		updatedTask = self.api.UpdateTask( self.taskID, name = "I have updated #Test" )
+
+		# The original task's name and the updatedTask's name should be different after the update
+		self.assertNotEqual( task['task']['name'], updatedTask['task']['name'] )
+
+		# The updated_at should now be different as well
+		self.assertNotEqual( task['task']['updated_at'], updatedTask['task']['updated_at'] )
+
+	def test_updatetask_today_does_not_exist( self ):
+		""" Should raise exception that task does not exist """
+		# Update a task that doesn't exist(Shouldn't have a task with id of 0)
+		self.assertEqual( self.api.UpdateTask( 0, name = "Update non-existing task" ), [] )
+
+	def test_updatetask_move_task( self ):
+		""" Should update a task and move it from today list to icebox list """
+		# Normalize the task to the today list
+		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'false', complete = 'false' )
+
+		# Move the task to the icebox
+		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'true' )
+		# Task should now be in the icebox
+		self.assertTrue( updatedTask['task']['icebox'] )
+
+		# Move the task to today
+		updatedTask = self.api.UpdateTask( self.taskID, icebox = 'false' )
+		# Task should not be in the icebox
+		self.assertFalse( updatedTask['task']['icebox'] )
+
+		# Move the task to completed
+		updateTask = self.api.UpdateTask( self.taskID, complete = 'true' )
+		# Task should now be in the complete
+		self.assertTrue( updatedTask['task']['complete'] )
+
+	def test_updatetask_bad_id( self ):
+		""" Should raise an ValueError exception from the bad id given """
+		self.failUnlessRaises( ValueError, self.api.UpdateTask, id = 'henry', name = "Update Me" )
+
+	def test_updatetask_bad_position( self ):
+		""" Should raise an ValueError exception from the bad position given """
+		self.failUnlessRaises( ValueError, self.api.UpdateTask, id = self.taskID, position = "henry" )
+
+	def test_updatetask_bad_icebox( self ):
+		""" Should raise an ValueError exception from the bad icebox value given """
+		self.failUnlessRaises( ValueError, self.api.UpdateTask, id = self.taskID, icebox = "henry" )
+
+	def test_updatetask_bad_complete( self ):
+		""" Should raise an ValueError exception from the bad complete value given """
+		self.failUnlessRaises( ValueError, self.api.UpdateTask, id = self.taskID, complete = "henry" )
 
 class DeleteTestCases( BaseTests ):
 	"""
@@ -199,7 +294,7 @@ class DeleteTestCases( BaseTests ):
 		self.assertEqual( self.api.GetSingle( taskID ), [] )
 
 	def test_deletetask_bad_id( self ):
-		""" Should raise an exception from bad position value """
+		""" Should raise an exception from the bad id given """
 		self.failUnlessRaises( ValueError, self.api.DeleteTask, 'henry' )
 
 def GetTestSuite( ):

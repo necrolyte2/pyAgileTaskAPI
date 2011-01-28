@@ -130,15 +130,32 @@ class AgileTaskAPI:
 		else:
 			return False
 
-	# Tests written
+	def _check_values( self, id = 1, name = "Some String", icebox = 'true', position = 1, complete = 'true' ):
+		""" Make sure every value has a valid value and raise correct exception for it """
+		# Make sure the id is a digit
+		if not self._is_digit( id ):
+			raise ValueError( "ID has to be an integer value > 0" )
+
+		# Make sure the position is a digit
+		if not self._is_digit( position ):
+			raise ValueError( "Position has to be an integer value > 0" )
+
+		# Make sure icebox is valid
+		if not icebox in self.tf:
+			raise ValueError( "icebox value given is incorrect" )
+
+		# Make sure complete is valid
+		if not complete in self.tf:
+			raise ValueError( "complete value given is incorrect" )
+
 	def GetSingle( self, id ):
 		"""
 			http://doc.agiletask.me/get_single.html
 			Returns a single task by its id
 			HTTP Method: GET
 		"""
-		if not self._is_digit( id ) and id > 0:
-			raise ValueError( 'ID must be an integer value > 0' )
+		# Check id
+		self._check_values( id = id )
 
 		# API URL
 		api_url = "/tasks/" + str( id ) + ".json"
@@ -228,20 +245,8 @@ class AgileTaskAPI:
 		api_url = '/tasks.json'
 		#api_url = '/testpost.php'
 
-		# Make sure the position is a digit
-		if not self._is_digit( position ):
-			raise ValueError( "Position has to be an integer value > 0" )
-		
-		# Make sure the name is a valid string
-		## Check needs to be implemented
-
-		# Make sure icebox is valid
-		if not icebox in self.tf:
-			raise ValueError( "icebox value given is incorrect" )
-
-		# Make sure complete is valid
-		if not complete in self.tf:
-			raise ValueError( "complete value given is incorrect" )
+		# Check all values given
+		self._check_values( 1, name, icebox, position, complete )
 
 		# The Data to send
 		task = { 
@@ -251,8 +256,9 @@ class AgileTaskAPI:
 			 "task[complete]" : complete \
 		       }
 		return self._post( api_url, task )
+		
 
-	def UpdateTask( self, id ):
+	def UpdateTask( self, id, name, icebox, position, complete ):
 		"""
 			http://doc.agiletask.me/update_tasks.html
 			Updates a task
@@ -268,8 +274,8 @@ class AgileTaskAPI:
 			Deletes a task
 			HTTP Method: DELETE
 		"""
-		if not self._is_digit( id ):
-			raise ValueError( "ID has to be an integer > 0" )
+		# Make sure the id is correct
+		self._check_values( id = id )
 
 		# API URL
 		api_url = '/tasks/' + str( id ) + '.json'
