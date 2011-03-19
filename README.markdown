@@ -49,7 +49,7 @@ A python wrapper for the AgileTask API
 
 ### Add New Task to Top of Today's Tasks
 
-	newTask = patapi.AddTask( 'Super cool awesome task text goes here!', icebox = 'false )
+	newTask = patapi.AddTask( 'Super cool awesome task text goes here!', icebox = 'false' )
 
 ### Update added task's name and move it to the icebox
 

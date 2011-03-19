@@ -29,7 +29,13 @@
 <tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><dl>
 <dt><font face="helvetica, arial"><a href="AgileTaskAPI.html#AgileTaskAPI">AgileTaskAPI</a>
-</font></dt><dt><font face="helvetica, arial"><a href="urllib2.html#Request">urllib2.Request</a>
+</font></dt><dt><font face="helvetica, arial"><a href="exceptions.html#Exception">exceptions.Exception</a>(<a href="exceptions.html#BaseException">exceptions.BaseException</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="AgileTaskAPI.html#BadHttpMethodException">BadHttpMethodException</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="urllib2.html#Request">urllib2.Request</a>
 </font></dt><dd>
 <dl>
 <dt><font face="helvetica, arial"><a href="AgileTaskAPI.html#RequestWithMethod">RequestWithMethod</a>
@@ -46,52 +52,181 @@
 <td colspan=2><tt>Agile&nbsp;Task&nbsp;API&nbsp;wrapper&nbsp;in&nbsp;python<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="AgileTaskAPI-AddTask"><strong>AddTask</strong></a>(self, name, icebox<font color="#909090">='true'</font>, position<font color="#909090">=1</font>, complete<font color="#909090">='false'</font>)</dt><dd><tt><a href="http://doc.agiletask.me/new_tasks.html">http://doc.agiletask.me/new_tasks.html</a><br>
+<dl><dt><a name="AgileTaskAPI-AddTask"><strong>AddTask</strong></a>(self, name, icebox<font color="#909090">='true'</font>, position<font color="#909090">=0</font>, complete<font color="#909090">='false'</font>)</dt><dd><tt><a href="http://doc.agiletask.me/new_tasks.html">http://doc.agiletask.me/new_tasks.html</a><br>
 Adds&nbsp;a&nbsp;new&nbsp;task&nbsp;given&nbsp;task&nbsp;info<br>
-HTTP&nbsp;Method:&nbsp;POST</tt></dd></dl>
+&nbsp;<br>
+Params:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name(str)&nbsp;-&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;task&nbsp;to&nbsp;be&nbsp;added<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icebox('true'|'false')&nbsp;-&nbsp;If&nbsp;the&nbsp;task&nbsp;should&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;icebox&nbsp;or&nbsp;not.&nbsp;Valid&nbsp;values&nbsp;are&nbsp;'true'&nbsp;|&nbsp;'false'.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position(int)&nbsp;-&nbsp;Priority&nbsp;or&nbsp;position&nbsp;of&nbsp;the&nbsp;task&nbsp;in&nbsp;the&nbsp;list&nbsp;you&nbsp;are&nbsp;adding&nbsp;it&nbsp;too.&nbsp;Lower&nbsp;is&nbsp;higher&nbsp;priority.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;complete('true'|'false')&nbsp;-&nbsp;If&nbsp;the&nbsp;task&nbsp;should&nbsp;be&nbsp;in&nbsp;the&nbsp;completed&nbsp;list&nbsp;or&nbsp;the&nbsp;today/icebox&nbsp;page<br>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;a&nbsp;task.&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition</tt></dd></dl>
 
 <dl><dt><a name="AgileTaskAPI-DeleteTask"><strong>DeleteTask</strong></a>(self, id)</dt><dd><tt><a href="http://doc.agiletask.me/delete_tasks.html">http://doc.agiletask.me/delete_tasks.html</a><br>
 Deletes&nbsp;a&nbsp;task<br>
-HTTP&nbsp;Method:&nbsp;DELETE</tt></dd></dl>
+&nbsp;<br>
+Params:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id(int)&nbsp;-&nbsp;The&nbsp;id&nbsp;of&nbsp;a&nbsp;task<br>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;the&nbsp;task&nbsp;just&nbsp;deleted.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition</tt></dd></dl>
 
 <dl><dt><a name="AgileTaskAPI-GetAllAchievements"><strong>GetAllAchievements</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_achievements.html">http://doc.agiletask.me/get_achievements.html</a><br>
 Returns&nbsp;all&nbsp;achievments<br>
-HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;all&nbsp;achievements.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition</tt></dd></dl>
 
 <dl><dt><a name="AgileTaskAPI-GetAllTasks"><strong>GetAllTasks</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_tasks.html">http://doc.agiletask.me/get_tasks.html</a><br>
 Returns&nbsp;all&nbsp;tasks<br>
-HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;all&nbsp;tasks.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition</tt></dd></dl>
 
 <dl><dt><a name="AgileTaskAPI-GetCompleted"><strong>GetCompleted</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_completed.html">http://doc.agiletask.me/get_completed.html</a><br>
 Returns&nbsp;all&nbsp;tasks&nbsp;completed<br>
-HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;all&nbsp;completed&nbsp;tasks.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition</tt></dd></dl>
 
 <dl><dt><a name="AgileTaskAPI-GetIcebox"><strong>GetIcebox</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_icebox.html">http://doc.agiletask.me/get_icebox.html</a><br>
 Returns&nbsp;all&nbsp;tasks&nbsp;in&nbsp;icebox<br>
-HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;all&nbsp;tasks&nbsp;in&nbsp;the&nbsp;icebox.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition</tt></dd></dl>
 
 <dl><dt><a name="AgileTaskAPI-GetRecentAchievements"><strong>GetRecentAchievements</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_new_achievements.html">http://doc.agiletask.me/get_new_achievements.html</a><br>
 Returns&nbsp;all&nbsp;recently&nbsp;aquired&nbsp;achievments<br>
-HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;all&nbsp;recent&nbsp;achievements.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition</tt></dd></dl>
 
 <dl><dt><a name="AgileTaskAPI-GetSingle"><strong>GetSingle</strong></a>(self, id)</dt><dd><tt><a href="http://doc.agiletask.me/get_single.html">http://doc.agiletask.me/get_single.html</a><br>
 Returns&nbsp;a&nbsp;single&nbsp;task&nbsp;by&nbsp;its&nbsp;id<br>
-HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+&nbsp;<br>
+Params:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id(int)&nbsp;-&nbsp;The&nbsp;id&nbsp;of&nbsp;a&nbsp;task<br>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;a&nbsp;task.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition</tt></dd></dl>
 
 <dl><dt><a name="AgileTaskAPI-GetToday"><strong>GetToday</strong></a>(self)</dt><dd><tt><a href="http://doc.agiletask.me/get_today.html">http://doc.agiletask.me/get_today.html</a><br>
 Returns&nbsp;today's&nbsp;tasks<br>
-HTTP&nbsp;Method:&nbsp;GET</tt></dd></dl>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;a&nbsp;all&nbsp;tasks&nbsp;in&nbsp;Todayask.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition</tt></dd></dl>
 
 <dl><dt><a name="AgileTaskAPI-UpdateTask"><strong>UpdateTask</strong></a>(self, id<font color="#909090">=None</font>, name<font color="#909090">=None</font>, icebox<font color="#909090">=None</font>, position<font color="#909090">=None</font>, complete<font color="#909090">=None</font>, task<font color="#909090">={}</font>)</dt><dd><tt><a href="http://doc.agiletask.me/update_tasks.html">http://doc.agiletask.me/update_tasks.html</a><br>
 Updates&nbsp;a&nbsp;task<br>
-HTTP&nbsp;Method:&nbsp;PUT</tt></dd></dl>
+&nbsp;<br>
+Params:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id(int)&nbsp;-&nbsp;The&nbsp;id&nbsp;of&nbsp;a&nbsp;task<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name(str)&nbsp;-&nbsp;The&nbsp;new&nbsp;name&nbsp;of&nbsp;the&nbsp;task<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icebox('true'|'false')&nbsp;-&nbsp;New&nbsp;value&nbsp;for&nbsp;the&nbsp;icebox<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;position(int)&nbsp;-&nbsp;New&nbsp;value&nbsp;for&nbsp;the&nbsp;position<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;complete('true'|'false')&nbsp;-&nbsp;New&nbsp;value&nbsp;for&nbsp;complete<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;task(dict)&nbsp;-&nbsp;{&nbsp;'task'&nbsp;:&nbsp;{&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;:&nbsp;&lt;new&nbsp;name&gt;,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'icebox'&nbsp;:&nbsp;&lt;new&nbsp;icebox&gt;,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'complete'&nbsp;:&nbsp;&lt;new&nbsp;complete&gt;,&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'position'&nbsp;:&nbsp;&lt;new&nbsp;position&gt;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note:&nbsp;id&nbsp;is&nbsp;required&nbsp;and&nbsp;also&nbsp;either&nbsp;any&nbsp;combination&nbsp;of&nbsp;(name,&nbsp;icebox,&nbsp;position,&nbsp;complete)&nbsp;or&nbsp;(a&nbsp;task&nbsp;dictionary&nbsp;representation)<br>
+&nbsp;<br>
+&nbsp;<br>
+Return:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python&nbsp;list/dict&nbsp;object&nbsp;representing&nbsp;the&nbsp;old&nbsp;task.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See&nbsp;the&nbsp;link&nbsp;above&nbsp;for&nbsp;object&nbsp;definition<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyError&nbsp;-&nbsp;If&nbsp;you&nbsp;supply&nbsp;task&nbsp;as&nbsp;the&nbsp;parameter&nbsp;and&nbsp;do&nbsp;not&nbsp;supply&nbsp;all&nbsp;4&nbsp;keys&nbsp;for&nbsp;the&nbsp;task<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;a&nbsp;poor&nbsp;implementation&nbsp;but&nbsp;it&nbsp;works&nbsp;for&nbsp;now</tt></dd></dl>
 
-<dl><dt><a name="AgileTaskAPI-__init__"><strong>__init__</strong></a>(self, api_key)</dt><dd><tt>Set&nbsp;the&nbsp;api_key&nbsp;for&nbsp;the&nbsp;user&nbsp;for&nbsp;this&nbsp;class&nbsp;instance</tt></dd></dl>
+<dl><dt><a name="AgileTaskAPI-__init__"><strong>__init__</strong></a>(self, api_key)</dt><dd><tt>Set&nbsp;the&nbsp;api_key&nbsp;for&nbsp;the&nbsp;user&nbsp;for&nbsp;this&nbsp;class&nbsp;instance<br>
+&nbsp;<br>
+Params:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;api_key(str)&nbsp;-&nbsp;The&nbsp;api&nbsp;key&nbsp;from&nbsp;your&nbsp;user&nbsp;account</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
 <dl><dt><strong>api_base_url</strong> = 'https://agiletask.me'</dl>
 
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="BadHttpMethodException">class <strong>BadHttpMethodException</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt><a href="exceptions.html#Exception">Exception</a>&nbsp;class&nbsp;raised&nbsp;when&nbsp;request&nbsp;methods&nbsp;are&nbsp;used&nbsp;that&nbsp;are&nbsp;not&nbsp;allowed&nbsp;on&nbsp;the&nbsp;server&nbsp;for&nbsp;a&nbsp;given&nbsp;url<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="AgileTaskAPI.html#BadHttpMethodException">BadHttpMethodException</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="BadHttpMethodException-__init__"><strong>__init__</strong></a>(self, url, requested_method, allowed_methods)</dt><dd><tt>Initialize&nbsp;the&nbsp;variables<br>
+&nbsp;<br>
+url(str)&nbsp;-&nbsp;The&nbsp;url&nbsp;that&nbsp;was&nbsp;used&nbsp;in&nbsp;the&nbsp;request<br>
+requested_method(str)&nbsp;-&nbsp;Any&nbsp;of&nbsp;the&nbsp;4&nbsp;HTTP&nbsp;methods.&nbsp;PUT,&nbsp;DELETE,&nbsp;GET,&nbsp;POST<br>
+allowed_methods(str)&nbsp;-&nbsp;The&nbsp;methods&nbsp;allowed&nbsp;for&nbsp;the&nbsp;given&nbsp;url</tt></dd></dl>
+
+<dl><dt><a name="BadHttpMethodException-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object at 0x100119f80&gt;<dd><tt>T.<a href="#BadHttpMethodException-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="BadHttpMethodException-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#BadHttpMethodException-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="BadHttpMethodException-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#BadHttpMethodException-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="BadHttpMethodException-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#BadHttpMethodException-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="BadHttpMethodException-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#BadHttpMethodException-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="BadHttpMethodException-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="BadHttpMethodException-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#BadHttpMethodException-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="BadHttpMethodException-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#BadHttpMethodException-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="BadHttpMethodException-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="BadHttpMethodException-__unicode__"><strong>__unicode__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+</dl>
 </td></tr></table> <p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#ffc8d8">
@@ -150,7 +285,7 @@ Methods inherited from <a href="urllib2.html#Request">urllib2.Request</a>:<br>
 <font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
     
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
-<td width="100%"><strong>VERSION</strong> = '0.0.1'<br>
+<td width="100%"><strong>VERSION</strong> = '1.0.0'<br>
 <strong>__author__</strong> = 'vallardt@gmail.com (Tyghe Vallard)'</td></tr></table><p>
 <table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
 <tr bgcolor="#7799ee">
