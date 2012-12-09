@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
 import unittest
-from AgileTaskAPI import AgileTaskAPI
+from agiletaskapi.AgileTaskAPI import AgileTaskAPI
 import sys
+import time
 
 class BaseTests( unittest.TestCase ):
 	def setUp( self ):
@@ -269,6 +270,9 @@ class UpdateTestCases( BaseTests ):
 		""" Should update a task given just a modified task returned from an update or get """
 		# Set a new name
 		self.task['task']['name'] = "Here is my new name #Update Test"
+
+        # Make sure we sleep at least 1 second so the update has a different time
+		time.sleep( 1 )
 
 		# Update our task using a previously returned task
 		updatedTask = self.api.UpdateTask( self.taskID, task = self.task )

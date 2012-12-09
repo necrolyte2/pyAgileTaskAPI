@@ -3,9 +3,6 @@ import urllib
 from urllib2 import URLError, HTTPError
 import json
 
-__author__ = "vallardt@gmail.com (Tyghe Vallard)"
-VERSION = "1.0.0"
-
 class RequestWithMethod(urllib2.Request):
 	"""
 		http://benjamin.smedbergs.us/blog/2008-10-21/putting-and-deleteing-in-python-urllib2/
